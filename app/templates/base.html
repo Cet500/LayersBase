@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>{{ title }} | База Законов</title>
+
+		<link rel="icon" href="{{ url_for( 'static', filename = 'favicon.ico' ) }}" type="image/x-icon">
+
+		<link rel="stylesheet" href="{{ url_for( 'static', filename = 'css/min/global.min.css' ) }}">
+
+		{% block links %}{% endblock %}
+	</head>
+
+	<body class="global__body">
+		<header class="global__header">
+			<div class="global__header-inner">
+				<img class="global__header-logo"
+					 src="{{ url_for( 'static', filename = 'logo.png' ) }}"
+					 height="30px" alt="logo">
+
+				<span class="global__header-title">База законов</span>
+
+				<form action="" class="global__header-search">
+					<label>
+						<input type="text" placeholder="найти..." class="global__header-search-input">
+					</label>
+
+					<input type="submit" value="найти" class="global__header-search-submit">
+				</form>
+			</div>
+		</header>
+
+		<main class="global__main">
+			{% block content %}{% endblock %}
+		</main>
+
+		<footer class="global__footer">
+			<p class="global__footer-info">2021</p>
+		</footer>
+	</body>
+</html>
