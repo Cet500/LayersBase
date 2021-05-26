@@ -1,12 +1,15 @@
 from flask import render_template, url_for, request, send_from_directory
 from app import app, db
+from app.models import Law
 
 # ------------------------ main pages ------------------------ #
 
 @app.route('/')
 @app.route('/index')
 def index():
-	return render_template( "index.html", title = "Главная" )
+	laws = Law.query.order_by(Law.id).all()
+
+	return render_template( "index.html", title = "Главная", laws = laws )
 
 
 # ------------------------ technical pages ------------------------ #

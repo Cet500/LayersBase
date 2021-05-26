@@ -7,6 +7,38 @@
 
 	<p>Это небольшая система, которая будет отображать и помогать в поиске различных законов, кодексов и подобного.</p>
 
-	<p><b><big>Статус: в разработке</big></b></p>
+	<h2>Кодексы в наличии:</h2>
+
+	{% for law in laws %}
+
+		<h3>{{ law.title }}</h3>
+
+		{% for part in law.parts %}
+
+			{% if part.title %}
+{#				<h4>{{ part.title }}</h4>#}
+			{% endif %}
+
+			{% for section in part.sections %}
+
+{#				<p>{{ section.name }}</p>#}
+
+				{% for chapter in section.chapters %}
+
+{#					<p style="margin-left: 40px">{{ chapter.name }}</p>#}
+
+					{% for article in chapter.articles %}
+
+{#						<p style="margin-left: 80px">{{ article.name }}</p>#}
+
+					{% endfor %}
+
+				{% endfor %}
+
+			{% endfor %}
+
+		{% endfor %}
+
+	{% endfor %}
 
 {% endblock %}

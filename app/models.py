@@ -42,30 +42,18 @@ class LawChapter(db.Model):
 	id_section = db.Column( db.Integer, db.ForeignKey( 'law_section.id' ), nullable = False )
 	name       = db.Column( db.String(512), index = True, nullable = True )
 
-	paragraphs = db.relationship( 'LawSection', backref = "paragraphs", lazy = "dynamic" )
+	articles = db.relationship( 'LawArticle', backref = "articles", lazy = "dynamic" )
 
 	def __repr__(self):
 		return f'chapter {self.id} of section {self.id_section}'
 
 
-class LawParagraph(db.Model):
-	# Параграф
-	id         = db.Column( db.Integer, primary_key = True )
-	id_chapter = db.Column( db.Integer, db.ForeignKey( 'law_chapter.id' ), nullable = False )
-	name       = db.Column( db.String(512), index = True, nullable = True )
-
-	articles = db.relationship( 'LawParagraph', backref = "articles", lazy = "dynamic" )
-
-	def __repr__(self):
-		return f'paragraph {self.id} of section {self.id_chapter}'
-
-
 class LawArticle(db.Model):
 	# Статья
-	id           = db.Column( db.Integer, primary_key = True )
-	id_paragraph = db.Column( db.Integer, db.ForeignKey( 'law_paragraph.id' ), nullable = False )
-	name         = db.Column( db.String(512), index = True, nullable = True )
-	text         = db.Column( db.Text(65000), nullable = False )
+	id         = db.Column( db.Integer, primary_key = True )
+	id_chapter = db.Column( db.Integer, db.ForeignKey( 'law_chapter.id' ), nullable = False )
+	name       = db.Column( db.String(1024), nullable = True )
+	text       = db.Column( db.Text(65000), nullable = False )
 
 	def __repr__(self):
-		return f'article {self.id} of paragraph {self.id_paragraph}'
+		return f'article {self.id} of chapter {self.id_chapter}'
