@@ -16,21 +16,27 @@
 	<body class="global__body">
 		<header class="global__header">
 			<div class="global__header-inner">
-				<img class="global__header-logo"
+				<a class="global__header-link" href="{{ url_for( 'index' ) }}">
+					<img class="global__header-logo"
 					 src="{{ url_for( 'static', filename = 'logo.png' ) }}"
 					 height="30px" alt="logo">
 
-				<span class="global__header-title">База законов</span>
+					<span class="global__header-title">База законов</span>
+				</a>
 
-				<form action="" class="global__header-search">
+				<form action="{{ url_for( 'find' ) }}" class="global__header-search">
 					<label>
-						<input type="text" placeholder="найти..." class="global__header-search-input">
+						<input type="text" name="query" placeholder="найти..." class="global__header-search-input">
 					</label>
 
 					<input type="submit" value="найти" class="global__header-search-submit">
 				</form>
 			</div>
 		</header>
+
+		<div class="global__path">
+			{% block path %}{% endblock %}
+		</div>
 
 		<main class="global__main">
 			{% block content %}{% endblock %}

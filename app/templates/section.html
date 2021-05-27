@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block path %}
+
+	<a href="{{ url_for( 'index' ) }}">главная</a> /
+	<a href="{{ url_for( 'law', id = law.id ) }}">{{ law.title }}</a> /
+
+	{% if part.title %}
+		<a href="{{ url_for( 'part', id = part.id ) }}">{{ part.title }}</a> /
+	{% endif %}
+
+	{{ section.name }}
+
+{% endblock %}
+
+
+{% block content %}
+
+	<h1>{{ law.title }}</h1>
+
+	<h3>{{ section.name }}</h3>
+
+	{% for chapter in section.chapters %}
+
+		<h4>
+			<a href="{{ url_for( "chapter", id = chapter.id ) }}" class="global__main-no-link">
+				{{ chapter.name }}
+			</a>
+		</h4>
+
+		{% for article in chapter.articles %}
+
+			<h5>
+				<a href="{{ url_for( "article", id = article.id ) }}" class="global__main-no-link">
+					{{ article.name }}
+				</a>
+			</h5>
+
+			<div style="padding-left: 20px">{{ article.text|safe }}</div>
+
+		{% endfor %}
+
+	{% endfor %}
+
+{% endblock %}

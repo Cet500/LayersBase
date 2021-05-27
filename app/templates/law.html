@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+
+{% block path %}
+
+	<a href="{{ url_for( 'index' ) }}">главная</a> /
+	{{ law.title }}
+
+{% endblock %}
+
+
+{% block content %}
+
+	<h1>{{ law.title }}</h1>
+
+	<a href="{{ url_for( 'full', id = law.id ) }}" class="global__main-link">
+		Полный текст
+	</a>
+
+	<h2>Содержание</h2>
+
+	{% for part in law.parts %}
+
+		{% if part.title %}
+
+			<a href="{{ url_for( "part", id = part.id ) }}" class="global__main-link g-0">
+				{{ part.title }}
+			</a>
+
+		{% endif %}
+
+		{% for section in part.sections %}
+
+			{% if section.name %}
+
+				<a href="{{ url_for( "section", id = section.id ) }}" class="global__main-link">
+					{{ section.name }}
+				</a>
+
+				{% for chapter in section.chapters %}
+
+					{% if chapter.name %}
+
+						<a href="{{ url_for( "chapter", id = chapter.id ) }}" class="global__main-link g-40">
+							{{ chapter.name }}
+						</a>
+
+						{% for article in chapter.articles %}
+
+							<a href="{{ url_for( "article", id = article.id ) }}" class="global__main-link g-80">
+								{{ article.name }}
+							</a>
+
+						{% endfor %}
+
+					{% else %}
+
+						{% for article in chapter.articles %}
+
+							<a href="{{ url_for( "article", id = article.id ) }}" class="global__main-link g-40">
+								{{ article.name }}
+							</a>
+
+						{% endfor %}
+
+					{% endif %}
+
+				{% endfor %}
+
+			{% else %}
+
+				{% for chapter in section.chapters %}
+
+					<a href="{{ url_for( "chapter", id = chapter.id ) }}" class="global__main-link">
+						{{ chapter.name }}
+					</a>
+
+					{% for article in chapter.articles %}
+
+						<a href="{{ url_for( "article", id = article.id ) }}" class="global__main-link g-40">
+							{{ article.name }}
+						</a>
+
+					{% endfor %}
+
+				{% endfor %}
+
+			{% endif %}
+
+		{% endfor %}
+
+	{% endfor %}
+
+{% endblock %}

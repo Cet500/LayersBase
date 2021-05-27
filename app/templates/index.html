@@ -1,43 +1,49 @@
 {% extends 'base.html' %}
 
 
+{% block links %}
+
+	<link rel="stylesheet" href="{{ url_for( 'static', filename = 'css/min/index.min.css' ) }}">
+
+{% endblock %}
+
+
+{% block path %}
+
+	главная
+
+{% endblock %}
+
+
 {% block content %}
 
 	<h1>База данных законов и кодексов РФ</h1>
 
-	<p>Это небольшая система, которая будет отображать и помогать в поиске различных законов, кодексов и подобного.</p>
+	<p>Это небольшая система, которая отображает и помогает в поиске различных законов, кодексов и подобного.</p>
 
-	<h2>Кодексы в наличии:</h2>
+	<h2>Конституция</h2>
 
-	{% for law in laws %}
+	<a href="{{ url_for( 'law', id = laws[0].id ) }}" class="global__main-link">
+		{{ laws[0].title }}
+	</a>
 
-		<h3>{{ law.title }}</h3>
+	<h2>Кодексы</h2>
 
-		{% for part in law.parts %}
+	{% for i in range(1, 24) %}
 
-			{% if part.title %}
-{#				<h4>{{ part.title }}</h4>#}
-			{% endif %}
+		<a href="{{ url_for( 'law', id = laws[i].id ) }}" class="global__main-link">
+			{{ laws[i].title }}
+		</a>
 
-			{% for section in part.sections %}
+	{% endfor %}
 
-{#				<p>{{ section.name }}</p>#}
+	<h2>Законы</h2>
 
-				{% for chapter in section.chapters %}
+	{% for i in range(25, 95) %}
 
-{#					<p style="margin-left: 40px">{{ chapter.name }}</p>#}
-
-					{% for article in chapter.articles %}
-
-{#						<p style="margin-left: 80px">{{ article.name }}</p>#}
-
-					{% endfor %}
-
-				{% endfor %}
-
-			{% endfor %}
-
-		{% endfor %}
+		<a href="{{ url_for( 'law', id = laws[i].id ) }}" class="global__main-link">
+			{{ laws[i].title }}
+		</a>
 
 	{% endfor %}
 

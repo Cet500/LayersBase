@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block links %}
+
+	<link rel="stylesheet" href="{{ url_for( 'static', filename = 'css/min/index.min.css' ) }}">
+
+{% endblock %}
+
+
+{% block path %}
+
+	<a href="{{ url_for( 'index' ) }}">главная</a> /
+	поиск /
+	{{ query }}
+
+{% endblock %}
+
+
+{% block content %}
+
+	<h1>Поиск по базе данных</h1>
+
+	{% if query_err %}
+		<h4 style="color: #ed534b">Ошибка: {{ query_err }}</h4>
+	{% else %}
+		<h4>Ваш запрос: {{ query }}</h4>
+
+		<h2>Результаты поиска ( {{ res_names.count() + res_chapters.count() + res_articles.count() }} ):</h2>
+
+		{% if res_names.count() %}
+
+			<h3>По названиям ( {{ res_names.count() }} ):</h3>
+
+			{% for res_name in res_names %}
+
+				<a href="{{ url_for( 'law', id = res_name.id ) }}" class="global__main-link">
+					{{ res_name.title }}
+				</a>
+
+			{% endfor %}
+
+		{% endif %}
+
+		{% if res_chapters.count() > 0 %}
+
+			<h3>По главам ( {{ res_chapters.count() }} ):</h3>
+
+			{% for res_chapter in res_chapters %}
+
+				<a href="{{ url_for( 'chapter', id = res_chapter.id ) }}" class="global__main-link">
+					{{ res_chapter.name }}
+				</a>
+
+			{% endfor %}
+
+		{% endif %}
+
+		{% if res_articles.count() > 0 %}
+
+			<h3>По главам ( {{ res_articles.count() }} ):</h3>
+
+			{% for res_article in res_articles %}
+
+				<a href="{{ url_for( 'article', id = res_article.id ) }}" class="global__main-link">
+					{{ res_article.name }}
+				</a>
+
+			{% endfor %}
+
+		{% endif %}
+
+	{% endif %}
+
+{% endblock %}
